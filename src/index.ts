@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 
 
 const main = async() =>{
+    // create data into db
     const result = await prisma.post.create({
         data :{
             title : "This is title",
