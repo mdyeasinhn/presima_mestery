@@ -6,12 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdyeasinhn/presima_mestery.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mdyeasinhn/presima_mestery/issues"
+  },
+  "homepage": "https://github.com/mdyeasinhn/presima_mestery#readme",
   "devDependencies": {
-    "@types/node": "^22.13.14",
+    "@types/node": "^22.13.15",
     "prisma": "^6.5.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
