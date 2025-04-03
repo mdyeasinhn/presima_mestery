@@ -13,7 +13,7 @@ const filtering = async () => {
                         contains: "title"
                     },
                 },
-                { 
+                {
                     published: true
                 }
             ]
@@ -29,14 +29,35 @@ const filtering = async () => {
                         contains: "title"
                     },
                 },
-                { 
+                {
                     published: false
                 }
             ]
         }
     });
+    // not filtering
+    const notFiltering = await prisma.post.findMany({
+        where: {
+            NOT: [
+                {
+                    title: {
+                        contains: "this"
+                    },
+                },
 
-    console.log("or filtering",orFiltering); // Log the results
+            ]
+        }
+    });
+    const startWith = await prisma.user.findMany({
+        where: {
+            email: {
+                startsWith: 'user1'
+            }
+
+        } 
+    });
+
+    console.log("start with", startWith); // Log the results
 };
 
 
