@@ -1,43 +1,59 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, UserRole } from "../generated/prisma";
+
 
 const prisma = new PrismaClient();
 
 
 const main = async () => {
-    const result = await prisma.post.create({
-        data: {
-            title: "This is title",
-            content: "This is content..",
-            authorName: "Yeasin",
+    // Creating a new user
+    // const createUser = await prisma.user.create({
+    //     data: {
+    //         userName: "user2",
+    //         email: "user1@mail.com",
+    //         role: UserRole.user
+    //     }
+    // });
+    // console.log(createUser); 
 
+    // // Creating a profile for the user
+    // const createProfile = await prisma.profile.create({
+    //     data: {
+    //         bio: "this is bio...",
+    //         userId: 1
+    //     }
+    // });
+    // console.log(createProfile);  
+
+    // // Creating a new category
+    // const createCategory = await prisma.category.create({
+    //     data: {
+    //         name: "software engineering"
+    //     }
+    // });
+    // console.log(createCategory);  
+
+    const createPost = await prisma.post.create({
+        data: {
+            title: "this is title..",
+            content: "this is content..",
+            authorId: 1,
+            postCategory: {
+                create: {
+                    categoryId : 3
+                    // category: {
+                    //     connect: {
+                    //         id: 1
+                    //     }
+                    // }
+                }
+            }
+        },
+        include:{
+            postCategory : true,
         }
     });
-    //    console.log(result);
+    console.log(createPost);
 
-    const createMany = await prisma.post.createMany({
-        data :[
-            {
-                title: "This is title",
-                content: "This is content..",
-                authorName: "Yeasin",
-            },
-            {
-                title: "This is title 2",
-                content: "This is content.. 2",
-                authorName: "Yeasin 2",
-            },
-            {
-                title: "This is title 3",
-                content: "This is content.. 3",
-                authorName: "Yeasin 3",
-            },
-            {
-                title: "This is title 4",
-                content: "This is content.. 4",
-                authorName: "Yeasin 4",
-            },
-        ]
-    })
 };
 
 main();
