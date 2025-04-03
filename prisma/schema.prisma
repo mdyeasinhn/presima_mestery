@@ -15,14 +15,15 @@ datasource db {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  published Boolean  @default(false)
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int            @id @default(autoincrement())
+  title        String
+  content      String
+  published    Boolean        @default(false)
+  authorId     Int
+  author       User           @relation(fields: [authorId], references: [id])
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  postCategory PostCategory[]
 
   @@map("posts")
 }
@@ -31,7 +32,7 @@ model User {
   id       Int      @id @default(autoincrement())
   userName String   @unique
   email    String
-  role     UserRole
+  role     UserRole @default(user)
   profile  Profile? // one to one relation
   post     Post[] // one to many relation
 
@@ -48,10 +49,22 @@ model Profile {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String
+  id           Int            @id @default(autoincrement())
+  name         String
+  postCategory PostCategory[]
 
   @@map("category")
+}
+
+model PostCategory {
+  postId Int
+  post   Post @relation(fields: [postId], references: [id])
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([postId, categoryId])
+  @@map("post_category")
 }
 
 enum UserRole {
