@@ -51,13 +51,43 @@ const filtering = async () => {
     const startWith = await prisma.user.findMany({
         where: {
             email: {
-                startsWith: 'user1'
+                startsWith: 'user1', // endWith,contains, equals
+
             }
 
-        } 
+        }
     });
 
-    console.log("start with", startWith); // Log the results
+
+    const userNameArray = ['user1', 'user2', 'user3'];
+
+    const userNameByArray = await prisma.user.findMany({
+        where: {
+            userName: {
+                in: userNameArray
+            }
+        }
+    });
+
+
+    const inDepthData = await prisma.user.findUnique({
+        where: {
+            id: 1,
+        },
+        include: {
+            post: {
+                include: {
+                    postCategory: {
+                        include: {
+                            category: true
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    console.dir(inDepthData, {depth : Infinity}); // Log the results
 };
 
 
