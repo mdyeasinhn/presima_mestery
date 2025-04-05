@@ -39,3 +39,4 @@ const aggregates = async () => {
 };
 
 aggregates();
+    
